@@ -19,7 +19,7 @@ module.exports = function (env) {
   const config = {
     entry: {
       'background_page': './src/background_page/index.js',
-      'content_script': './src/content_script/index.js',
+      'content_script': './src/content_script/index.js'
     },
     output: {
       path: __dirname + '/dist',
