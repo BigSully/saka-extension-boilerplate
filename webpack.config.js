@@ -12,7 +12,7 @@ const renderer = new marked.Renderer();
 
 module.exports = function (env) {
   console.log(env);
-  const [mode, browser, benchmark, firefoxBeta ] = env.split(':');
+  const [ mode, browser, benchmark, firefoxBeta ] = env.split(':');
   let version = require('./manifest/common.json').version;
   if (firefoxBeta) version += 'beta';
 
@@ -84,29 +84,26 @@ module.exports = function (env) {
     'BROWSER': JSON.stringify(browser),
     'CHROME': JSON.stringify(browser === 'chrome'),
     'FIREFOX': JSON.stringify(browser === 'firefox'),
-  }
+  };
 
   if (mode === 'prod') {
     config.plugins = config.plugins.concat([
       new MinifyPlugin(),
-      new webpack.DefinePlugin({
+      new webpack.DefinePlugin(Object.assign({
         'process.env.NODE_ENV': JSON.stringify('production'),
         'DEBUG': JSON.stringify(false),
         'VERSION': JSON.stringify(version),
-        'BENCHMARK': JSON.stringify(true),
-        ...browserDefines
-      })
+        'BENCHMARK': JSON.stringify(true)
+      }, browserDefines))
     ]);
   } else {
     config.plugins = config.plugins.concat([
-      new webpack.DefinePlugin({
+      new webpack.DefinePlugin(Object.assign({
         'process.env.NODE_ENV': JSON.stringify('development'),
         'DEBUG': JSON.stringify(true),
         'VERSION': JSON.stringify(version + ' dev'),
-        'BENCHMARK': JSON.stringify(benchmark === 'benchmark'),
-        'BROWSER': JSON.stringify(browser),
-        ...browserDefines
-      })
+        'BENCHMARK': JSON.stringify(benchmark === 'benchmark')
+      }, browserDefines))
     ]);
   }
   return config;

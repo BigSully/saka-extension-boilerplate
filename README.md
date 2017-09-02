@@ -7,6 +7,7 @@ Opinionated boilerplate for building extension for Chrome and Firefox
 * ESLint
 * Preact
 * Redux
+* Material-Web-Components
 * Gitbooks for documentation
 * Per-browser manifest generation
 * npm build commands for
